@@ -7,6 +7,7 @@
 #include "GameplayEffectExtension.h"
 #include <GameFramework/Character.h>
 #include "AbilitySystemBlueprintLibrary.h"
+#include "../../../../../../../Source/Runtime/Engine/Classes/Engine/Engine.h"
 
 UAuraAttributeSet::UAuraAttributeSet()
 {
@@ -86,7 +87,14 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	FEffectProperties Props;
 	SetEffectProperties(Data, Props);
 
-	
+	if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+	{
+		SetHealth(FMath::Clamp(GetHealth(), 0.f, GetMaxHealth()));
+	}
+	if (Data.EvaluatedData.Attribute == GetManaAttribute())
+	{
+		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
+	}
 }
 
 void UAuraAttributeSet::OnRep_Health(const FGameplayAttributeData& OldHealth) const
