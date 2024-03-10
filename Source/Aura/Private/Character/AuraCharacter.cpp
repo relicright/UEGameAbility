@@ -27,6 +27,9 @@ void AAuraCharacter::PossessedBy(AController* NewController)
 
 	// Init ability actor info for the server
 	InitAbilityActorInfo();
+
+	// Add abilities this character can use
+	AddCharacterAbilities();
 }
 
 void AAuraCharacter::OnRep_PlayerState()
@@ -37,7 +40,15 @@ void AAuraCharacter::OnRep_PlayerState()
 	InitAbilityActorInfo();
 }
 
-void AAuraCharacter::InitAbilityActorInfo()
+int32 AAuraCharacter::GetPlayerLevel()
+{
+	const AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
+	check(AuraPlayerState);
+	return AuraPlayerState->GetPlayerLevel();
+}
+
+/* Applied on the server and the client */
+void AAuraCharacter::InitAbilityActorInfo() 
 {
 	// Get and set the player state, ability system comp and attribute set from the player state
 	AAuraPlayerState* AuraPlayerState = GetPlayerState<AAuraPlayerState>();
@@ -57,4 +68,5 @@ void AAuraCharacter::InitAbilityActorInfo()
 		}
 	}
 
+	InitializeDefaultAttributes();  // Used to initialize the attributes of aura - uses game play effect in the editor to set values
 }
