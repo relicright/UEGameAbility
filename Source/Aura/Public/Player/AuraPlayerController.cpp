@@ -18,16 +18,36 @@
 AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates = true;
-	Spline = CreateDefaultSubobject<USplineComponent>(TEXT("Spline"));
+	Spline = CreateDefaultSubobject<USplineComponent>(TEXT("Spline"));	// Spline for pathfinding
 }
 
 void AAuraPlayerController::PlayerTick(float DeltaTime)
 {
 	Super::PlayerTick(DeltaTime);
+	
 	CursorTrace();
 	AutoRun();
 }
 
+void AAuraPlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	check(AuraContext);
+
+	if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer()))
+	{
+		Subsystem->AddMappingContext(AuraContext, 0);
+	}
+	
+	bShowMouseCursor = true;
+	DefaultMouseCursor = EMouseCursor::Default;
+
+	FInputModeGameAndUI InputModeData;
+	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+	InputModeData.SetHideCursorDuringCapture(false);
+	SetInputMode(InputModeData);
+}
 
 void AAuraPlayerController::AutoRun()
 {
@@ -44,34 +64,6 @@ void AAuraPlayerController::AutoRun()
 			bAutoRunning = false;
 		}
 	}
-}
-
-
-void AAuraPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
-{
-	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-
-	DOREPLIFETIME(AAuraPlayerController, AuraPlayerState);
-}
-
-void AAuraPlayerController::BeginPlay()
-{
-	Super::BeginPlay();
-	check(AuraContext);
-
-	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
-	if (Subsystem)
-	{
-		Subsystem->AddMappingContext(AuraContext, 0);
-	}
-	
-	bShowMouseCursor = true;
-	DefaultMouseCursor = EMouseCursor::Default;
-
-	FInputModeGameAndUI InputModeData;
-	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-	InputModeData.SetHideCursorDuringCapture(false);
-	SetInputMode(InputModeData);
 }
 
 void AAuraPlayerController::SetupInputComponent()
@@ -108,9 +100,10 @@ void AAuraPlayerController::CursorTrace()
 	
 	LastActor = ThisActor;
 	ThisActor = Cast<IEnemyInterface>(CursorHit.GetActor());
-	// Highlighting Actors
-	if (LastActor != ThisActor)
+	
+	if (LastActor != ThisActor) 
 	{
+		// Highlighting Actors
 		if (LastActor) LastActor->UnHighlightActor();
 		if (ThisActor) ThisActor->HighlightActor();
 	}
@@ -199,4 +192,11 @@ UAuraAbilitySystemComponent* AAuraPlayerController::GetASC()
 		AuraAbilitySystemComponent = Cast<UAuraAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
 	}
 	return AuraAbilitySystemComponent;
+}
+
+void AAuraPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AAuraPlayerController, AuraPlayerState);
 }

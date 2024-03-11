@@ -18,6 +18,7 @@ AAuraCharacter::AAuraCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationRoll = false;
 	bUseControllerRotationYaw = false;
+
 }
 
 
@@ -61,8 +62,7 @@ void AAuraCharacter::InitAbilityActorInfo()
 	// Initialize the overlay widget
 	if (AAuraPlayerController* AuraPlayerController = Cast<AAuraPlayerController>(GetController()))
 	{
-		AAuraHUD* AuraHUD =	Cast<AAuraHUD>(AuraPlayerController->GetHUD());
-		if (AuraHUD)
+		if (AAuraHUD* AuraHUD =	Cast<AAuraHUD>(AuraPlayerController->GetHUD()))
 		{
 			AuraHUD->InitOverlay(AuraPlayerController, AuraPlayerState, AbilitySystemComponent, AttributeSet);
 		}

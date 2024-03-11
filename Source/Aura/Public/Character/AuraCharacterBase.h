@@ -58,7 +58,7 @@ protected:
 
 	virtual void InitAbilityActorInfo();
 
-	void AddCharacterAbilities();
+	void AddCharacterAbilities() const;
 
 private:
 

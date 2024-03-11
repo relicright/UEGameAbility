@@ -23,6 +23,9 @@ AAuraEnemy::AAuraEnemy()
 	HealthBar->SetupAttachment(GetRootComponent());
 }
 
+/**
+ * Handles the method of highlighting the actor
+ */
 void AAuraEnemy::HighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(true);
@@ -31,6 +34,9 @@ void AAuraEnemy::HighlightActor()
 	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 }
 
+/**
+ * Handle the method for un-highlighting the actor
+ */
 void AAuraEnemy::UnHighlightActor()
 {
 	GetMesh()->SetRenderCustomDepth(false);
@@ -69,6 +75,8 @@ void AAuraEnemy::BeginPlay()
 				OnMaxHealthChanged.Broadcast(Data.NewValue);
 			}
 		);
+
+		// Broadcast changes to subscribers - Events bound in blueprint WBP_EnemyHealthBar
 		OnHealthChanged.Broadcast(AuraAS->GetHealth());
 		OnMaxHealthChanged.Broadcast(AuraAS->GetMaxHealth());
 	}	

@@ -21,8 +21,8 @@ void UTargetDataUnderMouse::Activate()
 	}
 	else
 	{
-		FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
-		FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
+		const FGameplayAbilitySpecHandle SpecHandle = GetAbilitySpecHandle();
+		const FPredictionKey ActivationPredictionKey = GetActivationPredictionKey();
 		AbilitySystemComponent.Get()->AbilityTargetDataSetDelegate(
 			SpecHandle,
 			ActivationPredictionKey).AddUObject(this, &UTargetDataUnderMouse::OnTargetDataReplicatedCallback);

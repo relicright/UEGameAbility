@@ -44,13 +44,13 @@ UAttributeWidgetController* UAuraAbilitySystemLibrary::GetAttributeMenuWidgetCon
 
 void UAuraAbilitySystemLibrary::InitializeDefaultAttributes(const UObject* WorldContextObject, ECharacterClass CharacterClass, float Level, UAbilitySystemComponent* ASC)
 {
-	AAuraGameModeBase* AuraGM = Cast<AAuraGameModeBase>(UGameplayStatics::GetGameMode(WorldContextObject));
+	const AAuraGameModeBase* AuraGM = Cast<AAuraGameModeBase>(UGameplayStatics::GetGameMode(WorldContextObject));
 	if (AuraGM == nullptr) return;
 
-	AActor* AvatarActor = ASC->GetAvatarActor();
+	const AActor* AvatarActor = ASC->GetAvatarActor();
 
-	UCharacterClassInfo* CharacterClassInfo = AuraGM->CharacterClassInfo;
-	FCharacterClassDefaultInfo ClassDefaultInfo = AuraGM->CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
+	const UCharacterClassInfo* CharacterClassInfo = AuraGM->CharacterClassInfo;
+	const FCharacterClassDefaultInfo ClassDefaultInfo = AuraGM->CharacterClassInfo->GetClassDefaultInfo(CharacterClass);
 
 	FGameplayEffectContextHandle PrimaryAttributesContextHandle = ASC->MakeEffectContext();
 	PrimaryAttributesContextHandle.AddSourceObject(AvatarActor);	// Source object for the GameplayEffect context

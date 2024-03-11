@@ -19,9 +19,9 @@ void UAuraAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySys
 	EffectAssetTags.Broadcast(TagContainer);
 }
 
-void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>> StartupAbilities)
+void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)
 {
-	for (TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
+	for (const TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
 	{		
 		FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
 

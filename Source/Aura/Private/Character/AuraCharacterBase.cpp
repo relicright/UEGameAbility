@@ -36,7 +36,7 @@ FVector AAuraCharacterBase::GetCombatSocketLocation()
 	return Weapon->GetSocketLocation(WeaponTipSocketName);
 }
 
-void AAuraCharacterBase::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level) const
+void AAuraCharacterBase::ApplyEffectToSelf(const TSubclassOf<UGameplayEffect> GameplayEffectClass, const float Level) const
 {
 	check(IsValid(GetAbilitySystemComponent()));
 	check(GameplayEffectClass);
@@ -60,12 +60,12 @@ void AAuraCharacterBase::InitAbilityActorInfo()
 
 }
 
-void AAuraCharacterBase::AddCharacterAbilities()
+void AAuraCharacterBase::AddCharacterAbilities() const
 {
-	UAuraAbilitySystemComponent* AuraASC = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);	
+	UAuraAbilitySystemComponent* AuraAsc = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);	
 	if (!HasAuthority()) return;
 
-	AuraASC->AddCharacterAbilities(StartupAbilities);
+	AuraAsc->AddCharacterAbilities(StartupAbilities);
 }
 
 UAbilitySystemComponent* AAuraCharacterBase::GetAbilitySystemComponent() const
