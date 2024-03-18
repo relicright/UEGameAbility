@@ -32,6 +32,19 @@ void FAuraGameplayTags::InitializeNativeGameplayTags()
 	GameplayTags.Attributes_Secondary_MaxMana = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Secondary.MaxMana"), FString("Maximum allowable mana points"));
 
 	/**
+	Skill Attributes
+	*/
+	GameplayTags.Attributes_Skill_Alchemist = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Alchemist"), FString("Skill at using potions in battle"));
+	GameplayTags.Attributes_Skill_Arcana = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Arcana"), FString("Skill at casting spells"));
+	GameplayTags.Attributes_Skill_Constructor = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Constructor"), FString("Skill at constructing items"));
+	GameplayTags.Attributes_Skill_Martial = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Martial"), FString("Skill at using martial arts"));
+	GameplayTags.Attributes_Skill_Musicianship = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Musicianship"), FString("Skill at using music"));
+	GameplayTags.Attributes_Skill_Ranger = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Ranger"), FString("Skill at using ranged"));
+	GameplayTags.Attributes_Skill_Religion = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Religion"), FString("Skill at using holiness"));
+	GameplayTags.Attributes_Skill_Summoner = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Summoner"), FString("Skill at summoning"));
+	GameplayTags.Attributes_Skill_Thievery = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Skill.Thievery"), FString("Skill at rogue effects"));
+	
+	/**
 	 * Input Tags
 	 */
 	GameplayTags.InputTag_LMB = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("InputTag.LMB"), FString("Input tag for left mouse button"));

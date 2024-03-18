@@ -20,7 +20,7 @@ class AURA_API AAuraCharacterBase : public ACharacter, public IAbilitySystemInte
 
 public:
 	AAuraCharacterBase();
-	UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 protected:
@@ -49,6 +49,10 @@ protected:
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
 		TSubclassOf<UGameplayEffect> DefaultVitalAttributes;
 
+	/// TESTING NEED TO REMOVE THIS WHEN ADDING IN SYSTEM FOR STORING A PLAYERS SAVED SKILLS /////////////////////
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category="Attributes")
+		TSubclassOf<UGameplayEffect> DefaultSkillAttributes;
+	
 	/**
 	 * Initialize the attributes using game play effect in the editor
 	 */

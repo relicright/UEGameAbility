@@ -71,6 +71,13 @@ protected:
 	T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);
 };
 
+/**
+ * Template function to search the data table for the row we need based on the tag
+ * @tparam T Template types
+ * @param DataTable DataTable to pull row from
+ * @param Tag Used to find the row
+ * @return 
+ */
 template<typename T>
 T* UOverlayWidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
 {

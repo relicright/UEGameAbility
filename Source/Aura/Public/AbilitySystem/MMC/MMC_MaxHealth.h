@@ -17,9 +17,11 @@ class AURA_API UMMC_MaxHealth : public UGameplayModMagnitudeCalculation
 public:
 	UMMC_MaxHealth();
 
+	// EffectSpec of the GameEffect using this modifier
 	virtual float CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const override;
 
 private:
-	
+
+	// The attribute we are trying to capture
 	FGameplayEffectAttributeCaptureDefinition VigorDef;
 };

@@ -51,6 +51,14 @@ void AAuraCharacterBase::InitializeDefaultAttributes() const
 	ApplyEffectToSelf(DefaultPrimaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultSecondaryAttributes, 1.f);
 	ApplyEffectToSelf(DefaultVitalAttributes, 1.f);
+
+	/**
+	 *	TESTING:
+	 *	Skills should be stored in a JSON or other files along with users steam or epic tags in order
+	 *	to allow for saving and continued progress.  Need to make a SKill UI menu to display skills,
+	 *	Allow for skills to be raised, lowered or locked.
+	 */
+	ApplyEffectToSelf(DefaultSkillAttributes, 1.f); 
 }
 
 
@@ -60,6 +68,10 @@ void AAuraCharacterBase::InitAbilityActorInfo()
 
 }
 
+/**
+ * Uses the owners Aura ASC to loop through the array of startup abilities added in the editor to the character and
+ * then, inside the ASC, GrantAbility to that character.
+ */
 void AAuraCharacterBase::AddCharacterAbilities() const
 {
 	UAuraAbilitySystemComponent* AuraAsc = CastChecked<UAuraAbilitySystemComponent>(AbilitySystemComponent);	

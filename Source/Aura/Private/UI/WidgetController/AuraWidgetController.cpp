@@ -11,7 +11,11 @@ void UAuraWidgetController::SetWidgetControllerParam(const FWidgetControllerPara
 	AttributeSet = WCParams.AttributeSet;
 }
 
-void UAuraWidgetController::BroadcastInitialValues()
+ /**
+  * Broadcast the initialized values from the character after all of the controller params have been set and
+  * stored on the widget.
+  */
+ void UAuraWidgetController::BroadcastInitialValues()
 {
 
 }

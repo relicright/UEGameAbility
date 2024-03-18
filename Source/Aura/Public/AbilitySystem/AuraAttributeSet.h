@@ -128,17 +128,7 @@ public:
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_ManaRegeneration", Category = "Secondary Attributes")
 	FGameplayAttributeData ManaRegeneration;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, ManaRegeneration);
-
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_MaxHealth", Category = "Vital Attributes")
-	FGameplayAttributeData MaxHealth;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxHealth);
-
-
-	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_MaxMana", Category = "Vital Attributes")
-	FGameplayAttributeData MaxMana;
-	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxMana);
-
-
+	
 	/*
 		Vital Attributes
 	*/
@@ -147,11 +137,58 @@ public:
 	FGameplayAttributeData Health;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Health);
 
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_MaxHealth", Category = "Vital Attributes")
+	FGameplayAttributeData MaxHealth;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxHealth);
+
 	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Mana", Category = "Vital Attributes")
 	FGameplayAttributeData Mana;
 	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Mana);
 
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_MaxMana", Category = "Vital Attributes")
+	FGameplayAttributeData MaxMana;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, MaxMana);
 
+	/*
+	 *	Skill Attributes
+	 */
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Religion", Category = "Skill Attributes")
+	FGameplayAttributeData Religion;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Religion);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Arcana", Category = "Skill Attributes")
+	FGameplayAttributeData Arcana;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Arcana);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Thievery", Category = "Skill Attributes")
+	FGameplayAttributeData Thievery;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Thievery);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Musicianship", Category = "Skill Attributes")
+	FGameplayAttributeData Musicianship;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Musicianship);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Alchemist", Category = "Skill Attributes")
+	FGameplayAttributeData Alchemist;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Alchemist);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Constructor", Category = "Skill Attributes")
+	FGameplayAttributeData Constructor;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Constructor);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Summoner", Category = "Skill Attributes")
+	FGameplayAttributeData Summoner;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Summoner);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Ranger", Category = "Skill Attributes")
+	FGameplayAttributeData Ranger;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Ranger);
+
+	UPROPERTY(BlueprintReadOnly, ReplicatedUsing = "OnRep_Martial", Category = "Skill Attributes")
+	FGameplayAttributeData Martial;
+	ATTRIBUTE_ACCESSORS(UAuraAttributeSet, Martial);
+	
 	/**
 	 * OnRep_Notifies
 	 */
@@ -203,6 +240,33 @@ public:
 
 	UFUNCTION()
 	void OnRep_ManaRegeneration(const FGameplayAttributeData& OldManaRegeneration) const;
+
+	UFUNCTION()
+	void OnRep_Religion(const FGameplayAttributeData& OldReligion) const;
+
+	UFUNCTION()
+	void OnRep_Arcana(const FGameplayAttributeData& OldArcana) const;
+
+	UFUNCTION()
+	void OnRep_Thievery(const FGameplayAttributeData& OldThievery) const;
+
+	UFUNCTION()
+	void OnRep_Musicianship(const FGameplayAttributeData& OldMusicianship) const;
+	
+	UFUNCTION()
+	void OnRep_Alchemist(const FGameplayAttributeData& OldAlchemist) const;
+
+	UFUNCTION()
+	void OnRep_Constructor(const FGameplayAttributeData& OldConstructor) const;
+
+	UFUNCTION()
+	void OnRep_Summoner(const FGameplayAttributeData& OldSummoner) const;
+
+	UFUNCTION()
+	void OnRep_Ranger(const FGameplayAttributeData& OldRanger) const;
+
+	UFUNCTION()
+	void OnRep_Martial(const FGameplayAttributeData& OldMartial) const;
 
 private:
 

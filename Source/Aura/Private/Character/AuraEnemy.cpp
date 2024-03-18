@@ -51,6 +51,8 @@ int32 AAuraEnemy::GetPlayerLevel()
 void AAuraEnemy::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// Initialize ASC ability actor info 
 	InitAbilityActorInfo();
 
 	// Set the widget controller to use in blueprint

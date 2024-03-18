@@ -93,6 +93,9 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 	}
 }
 
+/**
+ * Traces under the cursor to see if any target was hit and perform operations on target and store target
+ */
 void AAuraPlayerController::CursorTrace()
 {
 	GetHitResultUnderCursor(ECC_Visibility, false, CursorHit);
@@ -109,6 +112,10 @@ void AAuraPlayerController::CursorTrace()
 	}
 }
 
+/**
+ * When an ability input is pressed and the tag is passed in.
+ * @param InputTag Input tag passed in with the binding pressed - set in Enhanced Input Action inside editor.
+ */
 void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
 	if (InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB))
@@ -118,6 +125,10 @@ void AAuraPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 	}	
 }
 
+/**
+ * When an ability input is released and the tag is passed in.
+ * @param InputTag InputTag Input tag passed in with the binding pressed - set in Enhanced Input Action inside editor.
+ */
 void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
 	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB)) // If not left mouse click activate ability
@@ -150,6 +161,11 @@ void AAuraPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 	}
 }
 
+/**
+ * When an ability input is held in longer than 1 frame.  Used to try and activate an ability which has been granted to
+ * the character that matches the tag which was passed in along with the input.
+ * @param InputTag InputTag Input tag passed in with the binding pressed - set in Enhanced Input Action inside editor.
+ */
 void AAuraPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
 	if (!InputTag.MatchesTagExact(FAuraGameplayTags::Get().InputTag_LMB)) // If not left mouse click activate ability

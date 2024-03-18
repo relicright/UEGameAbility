@@ -11,6 +11,10 @@ void UAttributeWidgetController::BindCallbackToDependencies()
 {
 	UAuraAttributeSet* AS = CastChecked<UAuraAttributeSet>(AttributeSet);
 
+	/** Loop through each of the TagsToAttributes and bind a lambda to GetGameplayAttributeValueChangeDelegate
+	*   for each of the attributes in that list.  The lambda will broadcast whenever any changes occur in those
+	*   attributes.
+	*/
 	for (auto& Pair : AS->TagsToAttributes)
 	{
 		AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Pair.Value()).AddLambda(
@@ -26,6 +30,7 @@ void UAttributeWidgetController::BroadcastInitialValues()
 {
 	UAuraAttributeSet* AS = CastChecked<UAuraAttributeSet>(AttributeSet);
 
+	// AttributeInfo is set on the BP_AttributeWidgetController and the class is stored on the character's HUD blueprint
 	check(AttributeInfo);
 
 	for (auto& Pair : AS->TagsToAttributes)
@@ -34,6 +39,12 @@ void UAttributeWidgetController::BroadcastInitialValues()
 	}
 }
 
+/**
+ * Finds the attribute value needing broadcast using the passed in AttributeTag, store it in the FAuraAttributeInfo struct
+ * and then broadcast the FAuraAttributeInfo to the UI binding to that delegate in the editor.
+ * @param AttributeTag Tag used to find the associated attribute
+ * @param Attribute The attribute we are trying to pull the value from
+ */
 void UAttributeWidgetController::BroadcastAttributeInfo(const FGameplayTag& AttributeTag, const FGameplayAttribute& Attribute) const
 {
 	FAuraAttributeInfo Info = AttributeInfo->FindAttributeInfoForTag(AttributeTag);

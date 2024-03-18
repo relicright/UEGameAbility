@@ -33,6 +33,16 @@ public:
 	FGameplayTag Attributes_Secondary_HealthRegeneration;
 	FGameplayTag Attributes_Secondary_ManaRegeneration;
 
+	FGameplayTag Attributes_Skill_Religion;
+	FGameplayTag Attributes_Skill_Arcana;
+	FGameplayTag Attributes_Skill_Thievery;
+	FGameplayTag Attributes_Skill_Musicianship;
+	FGameplayTag Attributes_Skill_Alchemist;
+	FGameplayTag Attributes_Skill_Constructor;
+	FGameplayTag Attributes_Skill_Summoner;
+	FGameplayTag Attributes_Skill_Ranger;
+	FGameplayTag Attributes_Skill_Martial;
+
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
 	FGameplayTag InputTag_1;
