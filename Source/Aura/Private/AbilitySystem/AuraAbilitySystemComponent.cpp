@@ -32,7 +32,7 @@ void UAuraAbilitySystemComponent::ClientEffectApplied_Implementation(UAbilitySys
 }
 
 /**
- * Grant abilities to the owner of this ASC
+ * Grant abilities to the owner of this ASC by looping through the passed in UGameplayAbility array.
  * @param StartupAbilities Array of abilities to grant to the character.
  */
 void UAuraAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities)

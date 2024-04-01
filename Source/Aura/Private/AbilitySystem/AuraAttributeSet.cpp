@@ -9,6 +9,9 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Engine/Engine.h"
 #include "AuraGameplayTags.h"
+#include "Interaction/CombatInterface.h"
+#include "Kismet/GameplayStatics.h"
+#include "Player/AuraPlayerController.h"
 
 UAuraAttributeSet::UAuraAttributeSet()
 {
@@ -118,6 +121,52 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 	{
 		SetMana(FMath::Clamp(GetMana(), 0.f, GetMaxMana()));
 	}
+
+	if (Data.EvaluatedData.Attribute == GetIncomingDamageAttribute())
+	{
+		const float LocalIncomingDamage = GetIncomingDamage();
+		SetIncomingDamage(0.f);
+		if (LocalIncomingDamage > 0.f)
+		{
+			const float NewHealth = GetHealth() - LocalIncomingDamage;
+			SetHealth(FMath::Clamp(NewHealth, 0.f, GetMaxHealth()));
+
+			const bool bFatal = NewHealth <= 0.f;
+			if (bFatal)
+			{
+				if (ICombatInterface* CombatInterface = Cast<ICombatInterface>( Props.TargetAvatarActor ))
+				{
+					CombatInterface->Die();
+				}
+			}
+			else
+			{
+				// Check if the target has a tag that matches hit react to activate GE_HitReact in the game
+				FGameplayTagContainer TagContainer;
+				TagContainer.AddTag(FAuraGameplayTags::Get().Effects_HitReact);
+				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
+			}
+
+			// Make sure this isn't damage to self
+			ShowFloatingText(Props, LocalIncomingDamage);
+		}
+	}
+}
+
+/**
+ * Calls the ShowDamageNumber function on the player controller using the target character to attach to.
+ * @param Props EffectProperties reference passed in from PostGameplayEffectExecute
+ * @param Damage Amount of damage to change text to
+ */
+void UAuraAttributeSet::ShowFloatingText(const FEffectProperties& Props, float Damage)
+{
+	if (Props.SourceCharacter != Props.TargetCharacter)
+	{
+		if (AAuraPlayerController* PC = Cast<AAuraPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
+		{
+			PC->ShowDamageNumber(Damage, Props.TargetCharacter);
+		}
+	}
 }
 
 /**
@@ -146,10 +195,10 @@ void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData
 			{
 				Props.SourceController = Pawn->GetController();
 			}
-			if (Props.SourceController)
-			{
-				Props.SourceCharacter = Cast<ACharacter>(Props.SourceController->GetPawn());
-			}
+		}
+		if (Props.SourceController)
+		{
+			Props.SourceCharacter = Cast<ACharacter>(Props.SourceController->GetPawn());
 		}
 	}
 

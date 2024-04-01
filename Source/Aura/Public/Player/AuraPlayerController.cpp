@@ -13,6 +13,8 @@
 #include <NavigationSystem.h>
 #include <NavigationPath.h>
 
+#include "GameFramework/Character.h"
+#include "UI/Widget/DamageTextComponent.h"
 
 
 AAuraPlayerController::AAuraPlayerController()
@@ -215,4 +217,21 @@ void AAuraPlayerController::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 
 	DOREPLIFETIME(AAuraPlayerController, AuraPlayerState);
+}
+
+/**
+ * Create a UDamageTextComponent with the damage amount and attaches to a target character to display damage text.
+ * @param DamageAmount 
+ * @param TargetCharacter Character to attach and detach text to
+ */
+void AAuraPlayerController::ShowDamageNumber_Implementation(const float DamageAmount, ACharacter* TargetCharacter)
+{
+	if (IsValid(TargetCharacter) && DamageTextComponentClass)
+	{
+		UDamageTextComponent* DamageText = NewObject<UDamageTextComponent>(TargetCharacter, DamageTextComponentClass);
+		DamageText->RegisterComponent();
+		DamageText->AttachToComponent(TargetCharacter->GetRootComponent(), FAttachmentTransformRules::KeepRelativeTransform);
+		DamageText->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+		DamageText->SetDamageText(DamageAmount);
+	}
 }

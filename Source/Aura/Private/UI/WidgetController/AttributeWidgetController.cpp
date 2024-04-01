@@ -11,7 +11,7 @@ void UAttributeWidgetController::BindCallbackToDependencies()
 {
 	UAuraAttributeSet* AS = CastChecked<UAuraAttributeSet>(AttributeSet);
 
-	/** Loop through each of the TagsToAttributes and bind a lambda to GetGameplayAttributeValueChangeDelegate
+	/** Loop through each of the TagsToAttributes inside of the ASC and bind a lambda to GetGameplayAttributeValueChangeDelegate
 	*   for each of the attributes in that list.  The lambda will broadcast whenever any changes occur in those
 	*   attributes.
 	*/

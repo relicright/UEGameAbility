@@ -7,6 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "AuraPlayerController.generated.h"
 
+class UDamageTextComponent;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
@@ -31,6 +32,9 @@ public:
 	virtual void PlayerTick(float DeltaTime) override;
 	virtual  void GetLifetimeReplicatedProps(TArray<FLifetimeProperty> & OutLifetimeProps) const override;
 
+	UFUNCTION(Client, Reliable)
+	void ShowDamageNumber(float DamageAmount, ACharacter* TargetCharacter);
+	
 protected: 
 
 	virtual void BeginPlay() override;
@@ -86,4 +90,7 @@ private:
 	TObjectPtr<USplineComponent> Spline;
 
 	void AutoRun();
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<UDamageTextComponent> DamageTextComponentClass;
 };
