@@ -9,6 +9,7 @@
 #include "AbilitySystemBlueprintLibrary.h"
 #include "Engine/Engine.h"
 #include "AuraGameplayTags.h"
+#include "AbilitySystem/AuraAbilitySystemLibrary.h"
 #include "Interaction/CombatInterface.h"
 #include "Kismet/GameplayStatics.h"
 #include "Player/AuraPlayerController.h"
@@ -147,8 +148,10 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
 				Props.TargetASC->TryActivateAbilitiesByTag(TagContainer);
 			}
 
-			// Make sure this isn't damage to self
-			ShowFloatingText(Props, LocalIncomingDamage);
+			// Show floating text with crits, and blocks passed in to display under the damage text
+			const bool bBlock = UAuraAbilitySystemLibrary::IsBlockedHit(Props.EffectContextHandle);
+			const bool bCritical = UAuraAbilitySystemLibrary::IsCriticalHit(Props.EffectContextHandle);
+			ShowFloatingText(Props, LocalIncomingDamage, bBlock, bCritical);
 		}
 	}
 }
@@ -158,13 +161,13 @@ void UAuraAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallba
  * @param Props EffectProperties reference passed in from PostGameplayEffectExecute
  * @param Damage Amount of damage to change text to
  */
-void UAuraAttributeSet::ShowFloatingText(const FEffectProperties& Props, float Damage)
+void UAuraAttributeSet::ShowFloatingText(const FEffectProperties& Props, float Damage, bool bBlockedHit, bool bCriticalHit)
 {
 	if (Props.SourceCharacter != Props.TargetCharacter)
 	{
 		if (AAuraPlayerController* PC = Cast<AAuraPlayerController>(UGameplayStatics::GetPlayerController(Props.SourceCharacter, 0)))
 		{
-			PC->ShowDamageNumber(Damage, Props.TargetCharacter);
+			PC->ShowDamageNumber(Damage, Props.TargetCharacter, bBlockedHit, bCriticalHit);
 		}
 	}
 }
@@ -178,7 +181,7 @@ void UAuraAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData
 {
 	// Source = causer of the effect, Target = target of the effect (owner of this AttributeSet)
 
-	FGameplayEffectContextHandle EffectContextHandle = Data.EffectSpec.GetContext();
+	//FGameplayEffectContextHandle EffectContextHandle = Data.EffectSpec.GetContext();
 
 	Props.EffectContextHandle = Data.EffectSpec.GetContext();
 	Props.SourceASC = Props.EffectContextHandle.GetOriginalInstigatorAbilitySystemComponent();
