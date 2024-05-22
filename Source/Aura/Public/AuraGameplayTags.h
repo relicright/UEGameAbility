@@ -33,15 +33,10 @@ public:
 	FGameplayTag Attributes_Secondary_HealthRegeneration;
 	FGameplayTag Attributes_Secondary_ManaRegeneration;
 
-	FGameplayTag Attributes_Skill_Religion;
-	FGameplayTag Attributes_Skill_Arcana;
-	FGameplayTag Attributes_Skill_Thievery;
-	FGameplayTag Attributes_Skill_Musicianship;
-	FGameplayTag Attributes_Skill_Alchemist;
-	FGameplayTag Attributes_Skill_Constructor;
-	FGameplayTag Attributes_Skill_Summoner;
-	FGameplayTag Attributes_Skill_Ranger;
-	FGameplayTag Attributes_Skill_Martial;
+	FGameplayTag Attributes_Resistance_Fire;
+	FGameplayTag Attributes_Resistance_Lightning;
+	FGameplayTag Attributes_Resistance_Arcane;
+	FGameplayTag Attributes_Resistance_Physical;
 
 	FGameplayTag InputTag_LMB;
 	FGameplayTag InputTag_RMB;
@@ -51,8 +46,26 @@ public:
 	FGameplayTag InputTag_4;
 
 	FGameplayTag Damage;
+	FGameplayTag Damage_Fire;
+	FGameplayTag Damage_Lightning;
+	FGameplayTag Damage_Arcane;
+	FGameplayTag Damage_Physical;
+
+	FGameplayTag Abilities_Attack;
+
+	TMap<FGameplayTag, FGameplayTag> DamageTypesToResistances;
 
 	FGameplayTag Effects_HitReact;
+
+	FGameplayTag Attributes_Skill_Religion;
+	FGameplayTag Attributes_Skill_Arcana;
+	FGameplayTag Attributes_Skill_Thievery;
+	FGameplayTag Attributes_Skill_Musicianship;
+	FGameplayTag Attributes_Skill_Alchemist;
+	FGameplayTag Attributes_Skill_Constructor;
+	FGameplayTag Attributes_Skill_Summoner;
+	FGameplayTag Attributes_Skill_Ranger;
+	FGameplayTag Attributes_Skill_Martial;
 
 private:
 	static FAuraGameplayTags GameplayTags;
